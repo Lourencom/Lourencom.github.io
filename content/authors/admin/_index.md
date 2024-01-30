@@ -51,9 +51,9 @@ social:
   - icon: envelope
     icon_pack: fas
     link: mailto:lcm76 AT cam DOT ac DOT uk
-  - icon: graduation-cap # Alternatively, use `google-scholar` icon from `ai` icon pack
-    icon_pack: fas
-    link: https://scholar.google.co.uk
+#  - icon: graduation-cap # Alternatively, use `google-scholar` icon from `ai` icon pack
+#    icon_pack: fas
+#    link: https://scholar.google.co.uk
   - icon: github
     icon_pack: fab
     link: https://github.com/Lourencom
