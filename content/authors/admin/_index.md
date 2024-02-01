@@ -24,7 +24,7 @@ organizations:
     url: https://tecnico.ulisboa.pt/pt/
 
 # Short bio (displayed in user profile at end of posts)
-bio: My research interests include deep learning, computational biology, computational statistics, and algorithmic reasoning.
+bio: My research interests include deep learning, computational biology, computational statistics, and algorithms.
 
 # Interests to show in About widget
 interests:
@@ -39,7 +39,7 @@ education:
   courses:
     - course: BSc in Computer Science and Engineering
       institution: Instituto Superior Técnico - University of Lisbon
-      year: 2021
+      year: 2021 - 2024
 
 
 # Social/Academic Networking
