@@ -65,7 +65,6 @@ sections:
         - title: Research Assistant
           company: INESC-ID/IST
           company_url: ''
-          company_logo: org-ist
           location: Lisbon
           date_start: '2023-02-01'
           date_end: ''
@@ -73,9 +72,9 @@ sections:
         - title: Volunteer Student Mentor
           company: Instituto Superior Técnico - University of Lisbon
           company_url: ''
-          company_logo: org-ist
           location: Lisbon
           date_start: '2022-10-01'
+          date_end: ''
           description: Student mentor of BSc and Erasmus MSc students.
     design:
       columns: '2'
@@ -93,31 +92,27 @@ sections:
       #   Begin multi-line descriptions with YAML's `|2-` multi-line prefix.
       items:
         - title: C1 Advanced - Grade A
-          icon: cambridge
           date_start: '2023-12-01'
           organization: Cambridge Assessment English
           organization_url: https://www.cambridgeenglish.org/
           url: ''
-        - title: Academic excellence diploma
+        - title: Academic Excellence Diploma
           date_start: '2022-09-01'
           date_end: '2023-06-01'
           description: ''
-          icon: ist
           organization: Instituto Superior Técnico
           organization_url: https://tecnico.ulisboa.pt/en/
           url: ''
-        - title: Academic merit diploma
+        - title: Academic Merit Diploma
           date_start: '2021-09-01'
           date_end: '2022-06-01'
           description: ''
-          icon: ist
           organization: Instituto Superior Técnico
           organization_url: https://tecnico.ulisboa.pt/en/
           url: ''
         - certificate_url: https://certificates.cs50.io/d6b0988d-668d-43d1-9886-6f8ea106d0b7.pdf?size=letter
-          date_start: '2022-03-01'
+          date_start: '2021-03-01'
           description: 'Harvard introductory course to Computer Science'
-          icon: edx
           organization: edX
           organization_url: https://www.edx.org
           title: CS50x
