@@ -93,23 +93,21 @@ sections:
       #   Begin multi-line descriptions with YAML's `|2-` multi-line prefix.
       items:
         - title: C1 Advanced - Grade A
-          date_start: '2023-11'
-          description: ''
           icon: cambridge
           organization: Cambridge Assessment English
           organization_url: https://www.cambridgeenglish.org/
           url: ''
         - title: Academic excellence diploma
-          date_start: '2022-09'
-          date_end: '2023-06'
+          date_start: '2022-09-01'
+          date_end: '2023-06-01'
           description: ''
           icon: ist
           organization: Instituto Superior Técnico
           organization_url: https://tecnico.ulisboa.pt/en/
           url: ''
         - title: Academic merit diploma
-          date_start: '2021-09'
-          date_end: '2022-06'
+          date_start: '2021-09-01'
+          date_end: '2022-06-01'
           description: ''
           icon: ist
           organization: Instituto Superior Técnico
