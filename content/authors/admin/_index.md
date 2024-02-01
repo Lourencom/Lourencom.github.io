@@ -21,7 +21,7 @@ role: Computer Science and Engineering Student
 # Organizations/Affiliations to show in About widget
 organizations:
   - name: Instituto Superior Técnico
-    url: https://tecnico.ulisboa.pt/pt/
+    url: https://tecnico.ulisboa.pt
 
 # Short bio (displayed in user profile at end of posts)
 bio: My research interests include deep learning, computational biology, computational statistics, and algorithms.
@@ -49,10 +49,10 @@ education:
 social:
   - icon: envelope
     icon_pack: fas
-    link: '/#contact'
+    link: mailto:lourenco DOT matos AT tecnico DOT ulisboa DOT pt
   - icon: graduation-cap # Alternatively, use `google-scholar` icon from `ai` icon pack
     icon_pack: fas
-    link: https://scholar.google.co.uk/
+    link: https://scholar.google.co.uk
   - icon: github
     icon_pack: fab
     link: https://github.com/Lourencom
