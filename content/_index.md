@@ -94,6 +94,7 @@ sections:
       items:
         - title: C1 Advanced - Grade A
           icon: cambridge
+          end_date: '2023-12-01'
           organization: Cambridge Assessment English
           organization_url: https://www.cambridgeenglish.org/
           url: ''
@@ -114,6 +115,7 @@ sections:
           organization_url: https://tecnico.ulisboa.pt/en/
           url: ''
         - certificate_url: https://certificates.cs50.io/d6b0988d-668d-43d1-9886-6f8ea106d0b7.pdf?size=letter
+          end_date: '2022-003-01'
           description: 'Harvard introductory course to Computer Science'
           icon: edx
           organization: edX
