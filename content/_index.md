@@ -69,6 +69,13 @@ sections:
           date_start: '2023-02-01'
           date_end: ''
           description: Developing and integrating software tools in logical modeling of biological regulatory networks.
+        - title: Volunteer Instructor
+          company: TreeTree2
+          company_url: https://www.treetree2.org/
+          location: Lisbon
+          date_start: '2023-07-01'
+          date_end: ''
+          description: Instructor in online After School programs for young students in multiple scientific areas.
         - title: Volunteer Student Mentor
           company: Instituto Superior Técnico - University of Lisbon
           company_url: 'https://tecnico.ulisboa.pt/en/'
@@ -76,6 +83,7 @@ sections:
           date_start: '2022-10-01'
           date_end: ''
           description: Student mentor of BSc and Erasmus MSc students.
+        
     design:
       columns: '2'
   - block: accomplishments
