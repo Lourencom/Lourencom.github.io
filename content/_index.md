@@ -68,6 +68,11 @@ sections:
       #   Leave other parameters empty if not required.
       #   Begin multi-line descriptions with YAML's `|2-` multi-line prefix.
       items:
+        - title: University of Lisbon Best Student Award
+          date_start: '2021-09-01'
+          date_end: '2022-06-01'
+          organization: Instituto Superior Técnico
+          organization_url: https://tecnico.ulisboa.pt
         - title: Santander Excellence Scholarship
           date_start: '2024-01-01'
           organization: Santander
