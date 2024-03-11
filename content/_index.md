@@ -71,15 +71,36 @@ sections:
         - title: Academic Excellence Diploma
           date_start: '2022-09-01'
           date_end: '2023-06-01'
-          description: ''
           organization: Instituto Superior Técnico
           organization_url: https://tecnico.ulisboa.pt
+        - title: Santander Excellence Scholarship
+          date_start: '2024-01-01'
+          organization: Santander
+          organization_url: https://santanderopenacademy.com
         - title: Academic Merit Diploma
           date_start: '2021-09-01'
           date_end: '2022-06-01'
-          description: ''
           organization: Instituto Superior Técnico
           organization_url: https://tecnico.ulisboa.pt
+        - title: Oeiras Scholarship
+          date_start: '2022-09-01'
+          organization: Oeiras City Council
+          organization_url: ''
+        - title: Secondary Education in Music with Merit
+          date_start: '2008-09-01'
+          date_end: '2021-06-01'
+          organization: Conservatory of Cascais
+          organization_url: ''
+        - title: Secondary Education with Merit
+          date_start: '2018-09-01'
+          date_end: '2021-06-01'
+          organization: Portuguese Ministery of Education
+          organization_url: ''
+        - title: Honourable Mention in Guitar Young Talents Contest
+          date_start: '2012-09-01'
+          organization: Conservatory of Cascais
+          organization_url: ''
+    
 
     design:
       columns: '2'
@@ -96,17 +117,28 @@ sections:
       #   Leave other parameters empty if not required.
       #   Begin multi-line descriptions with YAML's `|2-` multi-line prefix.
       items:
+        - title: Machine Learning Engineering for Production (MLOps)
+          date_start: '2024-02-14'
+          organization: DeepLearning.AI
+          organization_url: https://www.deeplearning.ai/
+        - title: Deep Learning Specialization
+          date_start: '2024-02-14'
+          organization: DeepLearning.AI
+          organization_url: https://www.deeplearning.ai/
         - title: C1 Advanced - Grade A
           date_start: '2023-12-01'
           organization: Cambridge Assessment English
           organization_url: https://www.cambridgeenglish.org
         - title: CS50x - Final grade 100%
-          url: ''
           date_start: '2021-03-01'
           description: 'Harvard introductory course to Computer Science'
           organization: edX
           organization_url: https://www.edx.org
-
+        - title: Open Water diver
+          date_start: '2020-08-01'
+          organization: SSI
+          organization_url: https://www.divessi.com
+    
     design:
       columns: '2'
 
