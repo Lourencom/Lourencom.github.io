@@ -56,9 +56,37 @@ sections:
         
     design:
       columns: '2'
-  - block: accomplishments
+  - block: awards
     content:
-      title: 'Awards and Certificates'
+      title: 'Awards'
+      subtitle:
+      # Date format: https://docs.hugoblox.com/customization/#date-format
+      date_format: Jan 2006
+      # Accomplishments.
+      #   Add/remove as many `item` blocks below as you like.
+      #   `title`, `organization`, and `date_start` are the required parameters.
+      #   Leave other parameters empty if not required.
+      #   Begin multi-line descriptions with YAML's `|2-` multi-line prefix.
+      items:
+        - title: Academic Excellence Diploma
+          date_start: '2022-09-01'
+          date_end: '2023-06-01'
+          description: ''
+          organization: Instituto Superior Técnico
+          organization_url: https://tecnico.ulisboa.pt
+        - title: Academic Merit Diploma
+          date_start: '2021-09-01'
+          date_end: '2022-06-01'
+          description: ''
+          organization: Instituto Superior Técnico
+          organization_url: https://tecnico.ulisboa.pt
+
+    design:
+      columns: '2'
+
+  - block: certificates
+    content:
+      title: 'Certificates'
       subtitle:
       # Date format: https://docs.hugoblox.com/customization/#date-format
       date_format: Jan 2006
@@ -72,18 +100,6 @@ sections:
           date_start: '2023-12-01'
           organization: Cambridge Assessment English
           organization_url: https://www.cambridgeenglish.org
-        - title: Academic Excellence Diploma
-          date_start: '2022-09-01'
-          date_end: '2023-06-01'
-          description: ''
-          organization: Instituto Superior Técnico
-          organization_url: https://tecnico.ulisboa.pt
-        - title: Academic Merit Diploma
-          date_start: '2021-09-01'
-          date_end: '2022-06-01'
-          description: ''
-          organization: Instituto Superior Técnico
-          organization_url: https://tecnico.ulisboa.pt
         - title: CS50x - Final grade 100%
           url: ''
           date_start: '2021-03-01'
