@@ -68,22 +68,26 @@ sections:
       #   Leave other parameters empty if not required.
       #   Begin multi-line descriptions with YAML's `|2-` multi-line prefix.
       items:
+        - title: Santander Excellence Scholarship
+          date_start: '2024-01-01'
+          organization: Santander
+          organization_url: https://santanderopenacademy.com
         - title: Academic Excellence Diploma
           date_start: '2022-09-01'
           date_end: '2023-06-01'
           organization: Instituto Superior Técnico
           organization_url: https://tecnico.ulisboa.pt
-        - title: Santander Excellence Scholarship
-          date_start: '2024-01-01'
-          organization: Santander
-          organization_url: https://santanderopenacademy.com
+        - title: Oeiras Scholarship
+          date_start: '2022-09-01'
+          organization: Oeiras City Council
+          organization_url: ''
         - title: Academic Merit Diploma
           date_start: '2021-09-01'
           date_end: '2022-06-01'
           organization: Instituto Superior Técnico
           organization_url: https://tecnico.ulisboa.pt
         - title: Oeiras Scholarship
-          date_start: '2022-09-01'
+          date_start: '2021-09-01'
           organization: Oeiras City Council
           organization_url: ''
         - title: Secondary Education in Music with Merit
