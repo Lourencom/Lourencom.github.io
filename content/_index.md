@@ -56,7 +56,7 @@ sections:
         
     design:
       columns: '2'
-  - block: awards
+  - block: accomplishments
     content:
       title: 'Awards'
       subtitle:
@@ -84,7 +84,7 @@ sections:
     design:
       columns: '2'
 
-  - block: certificates
+  - block: accomplishments
     content:
       title: 'Certificates'
       subtitle:
