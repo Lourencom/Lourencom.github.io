@@ -29,10 +29,12 @@ bio: My research interests include deep learning, computational biology, computa
 # Interests to show in About widget
 interests:
   - Machine Learning
+  - Algorithms
   - Geometric Deep Learning
   - Computational Biology
   - Computational Statistics
   - Algorithmic Reasoning
+  - Compilers
 
 # Education to show in About widget
 education:
