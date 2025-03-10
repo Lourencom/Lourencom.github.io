@@ -16,7 +16,7 @@ status:
 superuser: true
 
 # Role/position/tagline
-role: Advanced Computer Science Student
+role: Researcher & Engineer
 
 # Organizations/Affiliations to show in About widget
 organizations:
@@ -24,17 +24,13 @@ organizations:
     url: https://www.cam.ac.uk/
 
 # Short bio (displayed in user profile at end of posts)
-bio: My research interests include deep learning, algorithms, compilers.
+bio: 
 
 # Interests to show in About widget
 interests:
-  - Machine Learning
-  - Algorithms
-  - Compilers
   - Geometric Deep Learning
-  - Computational Biology
-  - Computational Statistics
-  - Algorithmic Reasoning
+  - Machine Learning Systems
+  - Neural Algorithmic Reasoning
 
 # Education to show in About widget
 education:
@@ -67,13 +63,15 @@ social:
   # Link to a PDF of your resume/CV.
   # To use: copy your resume to `static/uploads/resume.pdf`, enable `ai` icons in `params.yaml`,
   # and uncomment the lines below.
-  - icon: cv
-    icon_pack: ai
-    link: uploads/resume.pdf
+  #- icon: cv
+  #  icon_pack: ai
+  #  link: uploads/resume.pdf
 
 # Highlight the author in author lists? (true/false)
 highlight_name: true
 ---
 
-Lourenço Matos is an aspiring researcher in the field of deep learning. His research interests include geometric deep learning, algorithms and compilers. He is currently pursuing an MPhil in Advanced Computer Science at the University of Cambridge. Previously, while doing his BSc in CSE at IST, he was also a Research Assistant in the field of Automated Reasoning and Software Reliability, particularly in Computational Biology, developing and integrating software for the logical modeling of biological regulatory networks. He has also developed some projects in areas such as Quantitative Finance, Neuroscience, and Algorithm Applications. 
+Aspiring researcher. Currently interested in Geometric Deep Learning and Neural Reasoning, working towards more reliable and generalizable deep learning. Current research spans Neural Algorithmic Reasoning applications to RNA velocity and Mechanistic Interpretability of LLMs through GDL principles.
+Also interested in the deployment and optimization of machine learning systems.
+
 {style="text-align: justify;"}

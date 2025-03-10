@@ -32,133 +32,92 @@ sections:
       #   Leave `date_end` empty if it's your current employer.
       #   Begin multi-line descriptions with YAML's `|2-` multi-line prefix.
       items:
-        - title: Research Assistant
+        - title: PyTorch Contributor
+          company: PyTorch
+          company_url: https://pytorch.org
+          date_start: '2024-02-01'
+          date_end: '2024-07-01'
+          description: Implementing lowerings for torch.compile, optimizing average pooling backwards 3D by 100%.
+        - title: Student Researcher
           company: INESC-ID/IST
           company_url: https://tecnico.ulisboa.pt
-          location: Lisbon
           date_start: '2023-02-01'
-          date_end: ''
-          description: Developing and integrating software tools in logical modeling of biological regulatory networks.
+          date_end: '2024-07-01'
+          description: Developing software tools for computational biology -- boolean logical modeling of biological regulatory networks.
         - title: Volunteer Instructor
           company: TreeTree2
           company_url: https://www.treetree2.org
-          location: Lisbon
           date_start: '2023-07-01'
-          date_end: ''
+          date_end: '2024-07-01'
           description: Instructor in online After School programs for young students in multiple scientific areas.
-        - title: Volunteer Student Mentor
-          company: Instituto Superior Técnico - University of Lisbon
+        - title: STT - Cybersecurity CTF Team Member
+          company: Instituto Superior Técnico
           company_url: https://tecnico.ulisboa.pt
-          location: Lisbon
+          date_start: '2022-09-01'
+          date_end: '2023-09-01'
+          description: Competing in cybersecurity Capture The Flag competitions.
+        - title: Volunteer Student Mentor
+          company: Instituto Superior Técnico
+          company_url: https://tecnico.ulisboa.pt
           date_start: '2022-10-01'
-          date_end: ''
+          date_end: '2024-07-01'
           description: Student mentor of BSc and Erasmus MSc students.
         
     design:
       columns: '2'
-  - block: accomplishments
+  - block: markdown
     content:
       title: 'Awards'
-      subtitle:
-      # Date format: https://docs.hugoblox.com/customization/#date-format
-      date_format: Jan 2006
-      # Accomplishments.
-      #   Add/remove as many `item` blocks below as you like.
-      #   `title`, `organization`, and `date_start` are the required parameters.
-      #   Leave other parameters empty if not required.
-      #   Begin multi-line descriptions with YAML's `|2-` multi-line prefix.
-      items:
-        - title: University of Lisbon Best Student Award
-          date_start: '2021-09-01'
-          date_end: '2022-06-01'
-          organization: Instituto Superior Técnico
-          organization_url: https://tecnico.ulisboa.pt
-        - title: Santander Excellence Scholarship
-          date_start: '2024-01-01'
-          organization: Santander
-          organization_url: https://santanderopenacademy.com
-        - title: Academic Excellence Diploma
-          date_start: '2022-09-01'
-          date_end: '2023-06-01'
-          organization: Instituto Superior Técnico
-          organization_url: https://tecnico.ulisboa.pt
-        - title: Oeiras Scholarship
-          date_start: '2022-09-01'
-          organization: Oeiras City Council
-          organization_url: ''
-        - title: Academic Merit Diploma
-          date_start: '2021-09-01'
-          date_end: '2022-06-01'
-          organization: Instituto Superior Técnico
-          organization_url: https://tecnico.ulisboa.pt
-        - title: Oeiras Scholarship
-          date_start: '2021-09-01'
-          organization: Oeiras City Council
-          organization_url: ''
-        - title: Secondary Education in Music with Merit
-          date_start: '2008-09-01'
-          date_end: '2021-06-01'
-          organization: Conservatory of Cascais
-          organization_url: ''
-        - title: Secondary Education with Merit
-          date_start: '2018-09-01'
-          date_end: '2021-06-01'
-          organization: Portuguese Ministery of Education
-          organization_url: ''
-        - title: Honourable Mention in Guitar Young Talents Contest
-          date_start: '2012-09-01'
-          organization: Conservatory of Cascais
-          organization_url: ''
-    
-
+      text: |
+        - **"Lacaixa" Foundation Postgraduate Fellow** (2024-2025)
+        - **Linux Foundation Scholarship - PyTorch** (2024)
+        - **University of Lisbon Best Student Award** (2021-2022)
+        - **Santander Excellence Scholarship** (2023-2024)
+        - **Academic Excellence Diploma** (2022-2023)
+        - **Oeiras Scholarship** (2022-2023)
+        - **Academic Merit Diploma** (2021-2022)
+        - **Oeiras Scholarship** (2021-2022)
+        - **Secondary Education in Music with Merit** (2008-2021)
+        - **Secondary Education with Merit** (2018-2021)
+        - **Honourable Mention in Guitar Young Talents Contest** (2012)
     design:
       columns: '2'
 
-  - block: accomplishments
+  - block: markdown
     content:
       title: 'Certificates'
-      subtitle:
-      # Date format: https://docs.hugoblox.com/customization/#date-format
-      date_format: Jan 2006
-      # Accomplishments.
-      #   Add/remove as many `item` blocks below as you like.
-      #   `title`, `organization`, and `date_start` are the required parameters.
-      #   Leave other parameters empty if not required.
-      #   Begin multi-line descriptions with YAML's `|2-` multi-line prefix.
-      items:
-        - title: Machine Learning Engineering for Production (MLOps)
-          date_start: '2024-02-14'
-          organization: DeepLearning.AI
-          organization_url: https://www.deeplearning.ai/
-        - title: Deep Learning Specialization
-          date_start: '2024-02-14'
-          organization: DeepLearning.AI
-          organization_url: https://www.deeplearning.ai/
-        - title: C1 Advanced - Grade A
-          date_start: '2023-12-01'
-          organization: Cambridge Assessment English
-          organization_url: https://www.cambridgeenglish.org
-        - title: CS50x - Final grade 100%
-          date_start: '2021-03-01'
-          description: 'Harvard introductory course to Computer Science'
-          organization: edX
-          organization_url: https://www.edx.org
-        - title: Open Water diver
-          date_start: '2020-08-01'
-          organization: SSI
-          organization_url: https://www.divessi.com
-    
+      text: |
+        - **Machine Learning Engineering for Production (MLOps) - DeepLearning.AI**
+        - **Deep Learning Specialization - DeepLearning.AI**
+        - **CEFR C2 English - Cambridge Assessment English**
+        - ...
     design:
       columns: '2'
 
-  - block: portfolio
+  - block: markdown
     id: projects
     content:
-      title: Projects
-      date_format: Jan 2006
-      filters:
-        folders:
-          - projects
+      title: Side Projects
+      text: |
+        ### Avalanche Prediction
+        Bayesian approach to predict the severity of an avalanche in a given region, and identification of the optimal location for dam placement and avalanche mitigation. Bayesian Optimization, Multi-fidelity, Sensitivity Analysis, Gaussian Processes, etc.
+
+        ### Trading Bot
+        A machine learning pipeline for prediction of asset value using a customly designed LSTM model. Developed efficient pipelines for API data extraction, web-scraping, cleaning, and preprocessing data from hundreds of sources. All-time-high accuracy of about 64%. PyTorch, Tensorflow, Keras, Numpy, Pandas.
+
+        ### MyFriend
+        Web application allowing for the creation and conversation with an AI-generated psychologist. LLMs, Speech Synthesis and Voice recognition to create a realistic therapist character and enable a fluid conversation with the user. Node.js, React, AWS.
+
+        ### Compiler
+        Coded a compiler for this made-up language called TIL supporting recursion, conditionals, loops, etc. From scratch (no libraries), in C++.
+
+        ### Filesystem
+        Implemented a filesystem supporting concurrent access, multithreaded operations, and implemented a message broker on top of it. From scratch (no libraries), in C.
+
+        ### Bimaru AI Engine
+        Solved the Bimaru puzzle, finding the optimal solution extremely fast using search algorithms.
+
+
 
     design:
       columns: '2'
