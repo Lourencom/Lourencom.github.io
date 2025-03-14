@@ -59,7 +59,7 @@ social:
     link: https://github.com/Lourencom
   - icon: linkedin
     icon_pack: fab
-    link: linkedin.com/in/lourenco-matos
+    link: https://linkedin.com/in/lourenco-matos
   # Link to a PDF of your resume/CV.
   # To use: copy your resume to `static/uploads/resume.pdf`, enable `ai` icons in `params.yaml`,
   # and uncomment the lines below.
