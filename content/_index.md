@@ -90,7 +90,9 @@ sections:
         - **Machine Learning Engineering for Production (MLOps) - DeepLearning.AI**
         - **Deep Learning Specialization - DeepLearning.AI**
         - **CEFR C2 English - Cambridge Assessment English**
-        - ...
+        - **Open Water Scuba Diver**
+        - **CS50x**
+        - **Blockchain Principles**
     design:
       columns: '2'
 
