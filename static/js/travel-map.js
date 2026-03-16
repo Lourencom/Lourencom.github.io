@@ -4,12 +4,66 @@
   // Use ISO 3166-1 alpha-2 codes (e.g. "PT" = Portugal, "ES" = Spain).
   // Full list: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
   // ============================================================
-  var visitedCountries = ["PT", "ES"];
+  var visitedCountries = [
+    "PT", "ES", "FR", "GB", "DE", "IT", "BE", "NL", "CH", "AT", 
+    "US", "BR", "MA", "CV", "EG", "ST", "TN", "VN", "AL", "AD", 
+    "BA", "HR", "CZ", "DK", "GR", "VA", "HU", "IE", "LI", "LU", 
+    "MT", "ME", "MK", "NO", "SI", "CR", "CU", "JM"
+  ];
 
-  // Country display names (update alongside the array above)
+  // Mapping of territories to their UN parent states for visual coloring
+  var territoryToParent = {
+    "GL": "DK", "FO": "DK",                                          // Denmark
+    "GF": "FR", "RE": "FR", "YT": "FR", "MQ": "FR", "GP": "FR",      // France
+    "NC": "FR", "PF": "FR", "TF": "FR", "PM": "FR", "WF": "FR",
+    "PR": "US", "GU": "US", "AS": "US", "VI": "US", "MP": "US",      // USA
+    "FK": "GB", "GI": "GB", "GS": "GB", "IO": "GB", "SH": "GB",      // UK
+    "AI": "GB", "BM": "GB", "VG": "GB", "KY": "GB", "MS": "GB",
+    "SJ": "NO", "BV": "NO",                                          // Norway
+    "AW": "NL", "CW": "NL", "SX": "NL", "BQ": "NL",                  // Netherlands
+    "EH": "MA"                                                       // Morocco
+  };
+
+  // Location display names
   var countryNames = {
     PT: "Portugal",
-    ES: "Spain"
+    ES: "Spain",
+    FR: "France",
+    GB: "United Kingdom",
+    DE: "Germany",
+    IT: "Italy",
+    BE: "Belgium",
+    NL: "Netherlands",
+    CH: "Switzerland",
+    AT: "Austria",
+    US: "United States",
+    BR: "Brazil",
+    MA: "Morocco",
+    CV: "Cabo Verde",
+    EG: "Egypt",
+    ST: "Sao Tome and Principe",
+    TN: "Tunisia",
+    VN: "Vietnam",
+    AL: "Albania",
+    AD: "Andorra",
+    BA: "Bosnia and Herzegovina",
+    HR: "Croatia",
+    CZ: "Czechia",
+    DK: "Denmark",
+    GR: "Greece",
+    VA: "Holy See",
+    HU: "Hungary",
+    IE: "Ireland",
+    LI: "Liechtenstein",
+    LU: "Luxembourg",
+    MT: "Malta",
+    ME: "Montenegro",
+    MK: "North Macedonia",
+    NO: "Norway",
+    SI: "Slovenia",
+    CR: "Costa Rica",
+    CU: "Cuba",
+    JM: "Jamaica"
   };
   // ============================================================
 
@@ -46,10 +100,9 @@
 
   // Color visited countries
   polygonSeries.mapPolygons.template.adapters.add("fill", function (fill, target) {
-    if (
-      target.dataItem &&
-      visitedCountries.indexOf(target.dataItem.get("id")) !== -1
-    ) {
+    var id = target.dataItem ? target.dataItem.get("id") : null;
+    var parentId = territoryToParent[id] || id;
+    if (visitedCountries.indexOf(parentId) !== -1) {
       return am5.color(0x1565c0);
     }
     return fill;
@@ -57,10 +110,9 @@
 
   // Hover state for visited countries
   polygonSeries.mapPolygons.template.adapters.add("tooltipText", function (text, target) {
-    if (
-      target.dataItem &&
-      visitedCountries.indexOf(target.dataItem.get("id")) !== -1
-    ) {
+    var id = target.dataItem ? target.dataItem.get("id") : null;
+    var parentId = territoryToParent[id] || id;
+    if (visitedCountries.indexOf(parentId) !== -1) {
       return "{name} ✓";
     }
     return text;
@@ -76,18 +128,27 @@
   var statsEl = document.getElementById("travel-stats");
   if (statsEl) {
     var count = visitedCountries.length;
+    var totalCountries = 195; // UN Member & Observer States
+
+    var percentage = ((count / totalCountries) * 100).toFixed(1);
+
     var names = visitedCountries.map(function (code) {
       return countryNames[code] || code;
     });
+    names.sort();
 
     statsEl.innerHTML =
-      "<p><strong>Countries visited: " + count + "</strong></p>" +
+      "<p><strong>Visited: " + count + " / " + totalCountries + " Countries (" + percentage + "%)</strong></p>" +
       '<ul class="country-list">' +
       names
         .map(function (name) {
           return '<li class="country-tag">' + name + "</li>";
         })
         .join("") +
-      "</ul>";
+      "</ul>" +
+      '<p style="font-size: 0.7rem; color: #777; margin-top: 1rem;">' +
+      "Note: The total count (195) is based on the UN Member and Observer States. " +
+      "The map visualization includes additional territories and regions for geographic completeness." +
+      "</p>";
   }
 })();
