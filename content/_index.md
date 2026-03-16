@@ -123,4 +123,25 @@ sections:
 
     design:
       columns: '2'
+
+  - block: markdown
+    id: travel
+    content:
+      title: 'Travel Map'
+      subtitle: ''
+      text: |-
+        <div id="chartdiv" style="width:100%;height:500px;"></div>
+        <div id="travel-stats"></div>
+        <style>
+        #chartdiv { max-width:100%; }
+        .country-list { display:flex; flex-wrap:wrap; gap:0.5rem; list-style:none; padding:0; margin:1rem 0 0 0; }
+        .country-tag { background:#1565c0; color:#fff; padding:0.25rem 0.75rem; border-radius:1rem; font-size:0.9rem; }
+        </style>
+        <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
+        <script src="https://cdn.amcharts.com/lib/5/map.js"></script>
+        <script src="https://cdn.amcharts.com/lib/5/geodata/worldLow.js"></script>
+        <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
+        <script src="/js/travel-map.js"></script>
+    design:
+      columns: '1'
 ---
