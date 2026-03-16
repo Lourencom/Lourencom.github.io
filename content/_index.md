@@ -32,6 +32,12 @@ sections:
       #   Leave `date_end` empty if it's your current employer.
       #   Begin multi-line descriptions with YAML's `|2-` multi-line prefix.
       items:
+        - title: ML Engineer
+          company: Isomorphic Labs
+          company_url: https://isomorphiclabs.com
+          date_start: '2025-09-29'
+          date_end: ''
+          description: Working towards solving all disease.
         - title: PyTorch Contributor
           company: PyTorch
           company_url: https://pytorch.org
@@ -69,6 +75,7 @@ sections:
     content:
       title: 'Awards'
       text: |
+        - **St Edmunds College Cambridge Award** (2025)
         - **"Lacaixa" Foundation Postgraduate Fellow** (2024-2025)
         - **Linux Foundation Scholarship - PyTorch** (2024)
         - **University of Lisbon Best Student Award** (2021-2022)
@@ -99,7 +106,7 @@ sections:
   - block: markdown
     id: projects
     content:
-      title: Side Projects
+      title: Projects
       text: |
         ### Avalanche Prediction
         Bayesian approach to predict the severity of an avalanche in a given region, and identification of the optimal location for dam placement and avalanche mitigation. Bayesian Optimization, Multi-fidelity, Sensitivity Analysis, Gaussian Processes, etc.

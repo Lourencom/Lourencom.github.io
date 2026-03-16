@@ -20,8 +20,8 @@ role: Researcher & Engineer
 
 # Organizations/Affiliations to show in About widget
 organizations:
-  - name: University of Cambridge
-    url: https://www.cam.ac.uk/
+  - name: Isomorphic Labs
+    url: https://www.isomorphiclabs.com/
 
 # Short bio (displayed in user profile at end of posts)
 bio: 
@@ -71,7 +71,6 @@ social:
 highlight_name: true
 ---
 
-Aspiring researcher. Currently interested in Geometric Deep Learning and Neural Reasoning, working towards more reliable and generalizable deep learning. Current research spans Neural Algorithmic Reasoning applications to RNA velocity and Mechanistic Interpretability of LLMs through GDL principles.
-Also interested in the deployment and optimization of machine learning systems.
+Scientist and Engineer. Generally interested in AI for Scientific Discovery. Past research includes Geometric Deep Learning, Neural Algorithmic Reasoning, Mechanistic Interpretability, and optimization of Machine Learning Systems.
 
 {style="text-align: justify;"}
