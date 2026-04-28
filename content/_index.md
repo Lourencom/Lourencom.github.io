@@ -78,15 +78,16 @@ sections:
         - **St Edmunds College Cambridge Award** (2025)
         - **"Lacaixa" Foundation Postgraduate Fellow** (2024-2025)
         - **Linux Foundation Scholarship - PyTorch** (2024)
-        - **University of Lisbon Best Student Award** (2021-2022)
+        - **University of Lisbon Best Student Award** (2023-2024)
         - **Santander Excellence Scholarship** (2023-2024)
         - **Academic Excellence Diploma** (2022-2023)
         - **Oeiras Scholarship** (2022-2023)
+        - **University of Lisbon Best Student Award** (2021-2022)
         - **Academic Merit Diploma** (2021-2022)
         - **Oeiras Scholarship** (2021-2022)
-        - **Secondary Education in Music with Merit** (2008-2021)
         - **Secondary Education with Merit** (2018-2021)
-        - **Honourable Mention in Guitar Young Talents Contest** (2012)
+        - **Secondary Education in Music with Merit** (2008-2021)
+#       - **Honourable Mention in Guitar Young Talents Contest** (2012)
     design:
       columns: '2'
 
