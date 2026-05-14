@@ -37,7 +37,7 @@ sections:
           company_url: https://isomorphiclabs.com
           date_start: '2025-09-29'
           date_end: ''
-          description: Working towards solving all disease.
+          description: Solve all disease.
         - title: PyTorch Contributor
           company: PyTorch
           company_url: https://pytorch.org
@@ -92,19 +92,6 @@ sections:
       columns: '2'
 
   - block: markdown
-    content:
-      title: 'Certificates'
-      text: |
-        - **Machine Learning Engineering for Production (MLOps) - DeepLearning.AI**
-        - **Deep Learning Specialization - DeepLearning.AI**
-        - **CEFR C2 English - Cambridge Assessment English**
-        - **Open Water Scuba Diver**
-        - **CS50x**
-        - **Blockchain Principles**
-    design:
-      columns: '2'
-
-  - block: markdown
     id: projects
     content:
       title: Projects
@@ -113,21 +100,16 @@ sections:
         Bayesian approach to predict the severity of an avalanche in a given region, and identification of the optimal location for dam placement and avalanche mitigation. Bayesian Optimization, Multi-fidelity, Sensitivity Analysis, Gaussian Processes, etc.
 
         ### Trading Bot
-        A machine learning pipeline for prediction of asset value using a customly designed LSTM model. Developed efficient pipelines for API data extraction, web-scraping, cleaning, and preprocessing data from hundreds of sources. All-time-high accuracy of about 64%. PyTorch, Tensorflow, Keras, Numpy, Pandas.
+        A machine learning pipeline for prediction of asset value using a customly designed LSTM model. Developed efficient pipelines for API data extraction, web-scraping, cleaning, and preprocessing data from hundreds of sources. All-time-high accuracy of about 64% (insane I know, learned patterns didn't hold for long though, if only I had invested all my money during those glorious weeks...). PyTorch, Tensorflow, Keras, Numpy, Pandas.
 
-        ### MyFriend
+        ### AI Psychologist Startup 
         Web application allowing for the creation and conversation with an AI-generated psychologist. LLMs, Speech Synthesis and Voice recognition to create a realistic therapist character and enable a fluid conversation with the user. Node.js, React, AWS.
 
         ### Compiler
-        Coded a compiler for this made-up language called TIL supporting recursion, conditionals, loops, etc. From scratch (no libraries), in C++.
+        Coded a compiler for a made-up language supporting recursion, conditionals, loops, etc. From scratch (no libraries), in C++.
 
         ### Filesystem
-        Implemented a filesystem supporting concurrent access, multithreaded operations, and implemented a message broker on top of it. From scratch (no libraries), in C.
-
-        ### Bimaru AI Engine
-        Solved the Bimaru puzzle, finding the optimal solution extremely fast using search algorithms.
-
-
+        Coded a filesystem from scratch, in C, supporting concurrent access, multithreaded operations, and implemented a message broker on top of it.
 
     design:
       columns: '2'

@@ -28,9 +28,10 @@ bio:
 
 # Interests to show in About widget
 interests:
+  - AI for Science
   - Geometric Deep Learning
-  - Machine Learning Systems
   - Neural Algorithmic Reasoning
+  - Machine Learning Systems
 
 # Education to show in About widget
 education:
@@ -71,6 +72,6 @@ social:
 highlight_name: true
 ---
 
-Scientist and Engineer. Generally interested in AI for Scientific Discovery. Past research includes Geometric Deep Learning, Neural Algorithmic Reasoning, Mechanistic Interpretability, and optimization of Machine Learning Systems.
+Solving all disease at [Isomorphic Labs](https://www.isomorphiclabs.com/). Previously, I completed an MPhil in Advanced Computer Science with Distinction at the [University of Cambridge](https://www.cst.cam.ac.uk/), researching Geometric Deep Learning, Neural Algorithmic Reasoning, Mechanistic Interpretability, and the optimization of Machine Learning Systems. Prior to that, I graduated with a BSc in Computer Science and Engineering from the [Technical University of Lisbon](https://tecnico.ulisboa.pt/en/), ranking 1st out of 360+ students. During my undergraduate studies, I also researched classical satisfiability algorithms for gene regulatory networks.
 
 {style="text-align: justify;"}
