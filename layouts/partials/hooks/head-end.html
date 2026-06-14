@@ -1,0 +1,10 @@
+{{ with site.Params.marketing.seo.alternate_names }}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "{{ site.Title }}",
+  "alternateName": {{ . | jsonify }}
+}
+</script>
+{{ end }}
