@@ -72,6 +72,6 @@ social:
 highlight_name: true
 ---
 
-Solving all disease at [Isomorphic Labs](https://www.isomorphiclabs.com/). Previously, I completed an MPhil in Advanced Computer Science with Distinction at the [University of Cambridge](https://www.cst.cam.ac.uk/), researching Geometric Deep Learning, Neural Algorithmic Reasoning, Mechanistic Interpretability, and the optimization of Machine Learning Systems. Prior to that, I graduated with a BSc in Computer Science and Engineering from the [Technical University of Lisbon](https://tecnico.ulisboa.pt/en/), ranking 1st out of 360+ students. During my undergraduate studies, I also researched classical satisfiability algorithms for gene regulatory networks.
+Solving all disease at [Isomorphic Labs](https://www.isomorphiclabs.com/). Previously, I completed an MPhil in Advanced Computer Science with Distinction at the [University of Cambridge](https://www.cst.cam.ac.uk/), researching Geometric Deep Learning, Neural Algorithmic Reasoning, Mechanistic Interpretability, and the optimization of Machine Learning Systems. Prior to that, I graduated with a BSc in Computer Science and Engineering from the [Technical University of Lisbon](https://tecnico.ulisboa.pt/en/), ranking 1st out of 360+ students. During my undergraduate studies, I also researched classical satisfiability algorithms for gene regulatory networks and explored quite a bit of cybersecurity.
 
 {style="text-align: justify;"}
