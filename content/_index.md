@@ -91,28 +91,28 @@ sections:
     design:
       columns: '2'
 
-  - block: markdown
-    id: projects
-    content:
-      title: Projects
-      text: |
-        ### Avalanche Prediction
-        Bayesian approach to predict the severity of an avalanche in a given region, and identification of the optimal location for dam placement and avalanche mitigation. Bayesian Optimization, Multi-fidelity, Sensitivity Analysis, Gaussian Processes, etc.
+  # - block: markdown
+  #   id: projects
+  #   content:
+  #     title: Projects
+  #     text: |
+  #       ### Avalanche Prediction
+  #       Bayesian approach to predict the severity of an avalanche in a given region, and identification of the optimal location for dam placement and avalanche mitigation. Bayesian Optimization, Multi-fidelity, Sensitivity Analysis, Gaussian Processes, etc.
 
-        ### Trading Bot
-        A machine learning pipeline for prediction of asset value using a customly designed LSTM model. Developed efficient pipelines for API data extraction, web-scraping, cleaning, and preprocessing data from hundreds of sources. All-time-high accuracy of about 64% (insane I know, learned patterns didn't hold for long though, if only I had invested all my money during those glorious weeks...). PyTorch, Tensorflow, Keras, Numpy, Pandas.
+  #       ### Trading Bot
+  #       A machine learning pipeline for prediction of asset value using a customly designed LSTM model. Developed efficient pipelines for API data extraction, web-scraping, cleaning, and preprocessing data from hundreds of sources. All-time-high accuracy of about 64% (insane I know, learned patterns didn't hold for long though, if only I had invested all my money during those glorious weeks...). PyTorch, Tensorflow, Keras, Numpy, Pandas.
 
-        ### AI Psychologist Startup 
-        Web application allowing for the creation and conversation with an AI-generated psychologist. LLMs, Speech Synthesis and Voice recognition to create a realistic therapist character and enable a fluid conversation with the user. Node.js, React, AWS.
+  #       ### AI Psychologist Startup 
+  #       Web application allowing for the creation and conversation with an AI-generated psychologist. LLMs, Speech Synthesis and Voice recognition to create a realistic therapist character and enable a fluid conversation with the user. Node.js, React, AWS.
 
-        ### Compiler
-        Coded a compiler for a made-up language supporting recursion, conditionals, loops, etc. From scratch (no libraries), in C++.
+  #       ### Compiler
+  #       Coded a compiler for a made-up language supporting recursion, conditionals, loops, etc. From scratch (no libraries), in C++.
 
-        ### Filesystem
-        Coded a filesystem from scratch, in C, supporting concurrent access, multithreaded operations, and implemented a message broker on top of it.
+  #       ### Filesystem
+  #       Coded a filesystem from scratch, in C, supporting concurrent access, multithreaded operations, and implemented a message broker on top of it.
 
-    design:
-      columns: '2'
+  #   design:
+  #     columns: '2'
 
   - block: markdown
     id: travel
