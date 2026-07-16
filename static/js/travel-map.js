@@ -63,7 +63,8 @@
     SI: "Slovenia",
     CR: "Costa Rica",
     CU: "Cuba",
-    JM: "Jamaica"
+    JM: "Jamaica",
+    RS: "Serbia"
   };
   // ============================================================
 
