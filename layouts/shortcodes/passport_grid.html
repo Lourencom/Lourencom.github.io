@@ -1,0 +1,420 @@
+{{ $data := site.Data.passport_travel }}
+{{ $countries := $data.countries }}
+{{ $totalUN := $data.total_un_states | default 195 }}
+{{ $count := len $countries }}
+{{ $pct := div (mul (float $count) 100.0) (float $totalUN) }}
+
+<div class="passport-container">
+  <!-- Metrics Bar -->
+  <div class="passport-metrics-grid">
+    <div class="metric-card">
+      <div class="metric-value">{{ $count }}</div>
+      <div class="metric-label">Countries Visited</div>
+      <div class="metric-sub">{{ printf "%.1f" $pct }}% of UN States</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-value">4</div>
+      <div class="metric-label">Continents</div>
+      <div class="metric-sub">EU · AM · AF · AS</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-value">2</div>
+      <div class="metric-label">Bases Lived In</div>
+      <div class="metric-sub">Portugal & UK</div>
+    </div>
+  </div>
+
+  <!-- Controls: Filter Tabs & Search -->
+  <div class="passport-controls">
+    <div class="region-tabs" id="region-tabs">
+      <button class="tab-btn active" data-filter="all">All ({{ $count }})</button>
+      <button class="tab-btn" data-filter="Europe">Europe</button>
+      <button class="tab-btn" data-filter="Americas">Americas</button>
+      <button class="tab-btn" data-filter="Africa">Africa</button>
+      <button class="tab-btn" data-filter="Asia">Asia</button>
+    </div>
+    <div class="passport-search-wrap">
+      <input type="text" id="passport-search" class="passport-search-input" placeholder="Search country..." />
+    </div>
+  </div>
+
+  <!-- Cards Grid -->
+  <div class="passport-cards-grid" id="passport-cards-grid">
+    {{ range sort $countries "name" }}
+    <div class="country-card" data-region="{{ .region }}" data-name="{{ .name | lower }}" data-code="{{ .code | lower }}">
+      <div class="card-flag">{{ .flag }}</div>
+      <div class="card-info">
+        <div class="card-header-line">
+          <span class="card-country-name">{{ .name }}</span>
+          <span class="card-code-badge">{{ .code }}</span>
+        </div>
+        <div class="card-sub-line">
+          <span class="card-subregion">{{ .subregion | default .region }}</span>
+          {{ if .note }}
+          <span class="card-note-badge">{{ .note }}</span>
+          {{ else if eq .status "home" }}
+          <span class="card-note-badge home">Home</span>
+          {{ else if eq .status "lived" }}
+          <span class="card-note-badge lived">Lived</span>
+          {{ end }}
+        </div>
+      </div>
+    </div>
+    {{ end }}
+  </div>
+
+  <p class="passport-empty-msg" id="passport-empty-msg" style="display: none;">
+    No countries matched your search.
+  </p>
+
+  <p class="passport-footnote">
+    Total based on 195 UN Member & Observer States.
+  </p>
+</div>
+
+<style>
+.passport-container {
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* Metrics bar */
+.passport-metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.metric-card {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 1.1rem 1.25rem;
+  text-align: center;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.metric-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+[data-theme="dark"] .metric-card,
+body.dark .metric-card {
+  background: #1e293b;
+  border-color: #334155;
+}
+
+.metric-value {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #1e293b;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+[data-theme="dark"] .metric-value,
+body.dark .metric-value {
+  color: #f1f5f9;
+}
+
+.metric-label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #2563eb;
+  margin-top: 0.25rem;
+}
+
+[data-theme="dark"] .metric-label,
+body.dark .metric-label {
+  color: #60a5fa;
+}
+
+.metric-sub {
+  font-size: 0.75rem;
+  color: #64748b;
+  margin-top: 0.2rem;
+}
+
+/* Controls */
+.passport-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+  margin-bottom: 1.25rem;
+}
+
+.region-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.tab-btn {
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  color: #475569;
+  padding: 0.35rem 0.8rem;
+  border-radius: 8px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.tab-btn:hover {
+  background: #e2e8f0;
+  color: #1e293b;
+}
+
+.tab-btn.active {
+  background: #2563eb;
+  border-color: #2563eb;
+  color: #ffffff;
+}
+
+[data-theme="dark"] .tab-btn,
+body.dark .tab-btn {
+  background: #1e293b;
+  border-color: #334155;
+  color: #94a3b8;
+}
+
+[data-theme="dark"] .tab-btn:hover,
+body.dark .tab-btn:hover {
+  background: #334155;
+  color: #f1f5f9;
+}
+
+[data-theme="dark"] .tab-btn.active,
+body.dark .tab-btn.active {
+  background: #3b82f6;
+  border-color: #3b82f6;
+  color: #ffffff;
+}
+
+.passport-search-wrap {
+  flex-grow: 1;
+  max-width: 240px;
+}
+
+.passport-search-input {
+  width: 100%;
+  padding: 0.35rem 0.75rem;
+  font-size: 0.82rem;
+  border-radius: 8px;
+  border: 1px solid #cbd5e1;
+  background: #ffffff;
+  color: inherit;
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+
+.passport-search-input:focus {
+  border-color: #2563eb;
+}
+
+[data-theme="dark"] .passport-search-input,
+body.dark .passport-search-input {
+  background: #0f172a;
+  border-color: #334155;
+}
+
+/* Cards Grid */
+.passport-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 0.75rem;
+}
+
+.country-card {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.65rem 0.85rem;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+}
+
+.country-card:hover {
+  transform: translateY(-2px);
+  border-color: #93c5fd;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.08);
+}
+
+[data-theme="dark"] .country-card,
+body.dark .country-card {
+  background: #1e293b;
+  border-color: #334155;
+}
+
+[data-theme="dark"] .country-card:hover,
+body.dark .country-card:hover {
+  border-color: #3b82f6;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.card-flag {
+  font-size: 1.75rem;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.card-info {
+  flex-grow: 1;
+  min-width: 0;
+}
+
+.card-header-line {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.card-country-name {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #1e293b;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+[data-theme="dark"] .card-country-name,
+body.dark .card-country-name {
+  color: #f1f5f9;
+}
+
+.card-code-badge {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: #64748b;
+  background: #f1f5f9;
+  padding: 0.1rem 0.35rem;
+  border-radius: 4px;
+  letter-spacing: 0.04em;
+}
+
+[data-theme="dark"] .card-code-badge,
+body.dark .card-code-badge {
+  background: #0f172a;
+  color: #94a3b8;
+}
+
+.card-sub-line {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-top: 0.15rem;
+  flex-wrap: wrap;
+}
+
+.card-subregion {
+  font-size: 0.72rem;
+  color: #64748b;
+}
+
+.card-note-badge {
+  font-size: 0.68rem;
+  background: #eff6ff;
+  color: #1d4ed8;
+  padding: 0.05rem 0.35rem;
+  border-radius: 4px;
+  font-weight: 500;
+}
+
+.card-note-badge.home {
+  background: #ecfdf5;
+  color: #047857;
+}
+
+.card-note-badge.lived {
+  background: #fef3c7;
+  color: #b45309;
+}
+
+[data-theme="dark"] .card-note-badge {
+  background: #1e3a8a;
+  color: #93c5fd;
+}
+
+[data-theme="dark"] .card-note-badge.home {
+  background: #064e3b;
+  color: #6ee7b7;
+}
+
+[data-theme="dark"] .card-note-badge.lived {
+  background: #78350f;
+  color: #fde68a;
+}
+
+.passport-empty-msg {
+  text-align: center;
+  color: #64748b;
+  padding: 2rem 0;
+  font-size: 0.9rem;
+}
+
+.passport-footnote {
+  font-size: 0.75rem;
+  color: #64748b;
+  margin-top: 1.25rem;
+}
+</style>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const tabs = document.querySelectorAll(".tab-btn");
+  const searchInput = document.getElementById("passport-search");
+  const cards = document.querySelectorAll(".country-card");
+  const emptyMsg = document.getElementById("passport-empty-msg");
+
+  let currentFilter = "all";
+  let searchQuery = "";
+
+  function filterCards() {
+    let visibleCount = 0;
+    cards.forEach(function (card) {
+      const region = card.getAttribute("data-region");
+      const name = card.getAttribute("data-name");
+      const code = card.getAttribute("data-code");
+
+      const matchesRegion = currentFilter === "all" || region === currentFilter;
+      const matchesSearch = !searchQuery || name.includes(searchQuery) || code.includes(searchQuery);
+
+      if (matchesRegion && matchesSearch) {
+        card.style.display = "flex";
+        visibleCount++;
+      } else {
+        card.style.display = "none";
+      }
+    });
+
+    if (emptyMsg) {
+      emptyMsg.style.display = visibleCount === 0 ? "block" : "none";
+    }
+  }
+
+  tabs.forEach(function (tab) {
+    tab.addEventListener("click", function () {
+      tabs.forEach(t => t.classList.remove("active"));
+      this.classList.add("active");
+      currentFilter = this.getAttribute("data-filter");
+      filterCards();
+    });
+  });
+
+  if (searchInput) {
+    searchInput.addEventListener("input", function () {
+      searchQuery = this.value.trim().toLowerCase();
+      filterCards();
+    });
+  }
+});
+</script>
