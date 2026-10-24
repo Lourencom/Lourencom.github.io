@@ -8,7 +8,7 @@
     "PT", "ES", "FR", "GB", "DE", "IT", "BE", "NL", "CH", "AT", 
     "US", "BR", "MA", "CV", "EG", "ST", "TN", "VN", "AL", "AD", 
     "BA", "HR", "CZ", "DK", "GR", "VA", "HU", "IE", "LI", "LU", 
-    "MT", "ME", "MK", "NO", "SI", "CR", "CU", "JM", "RS"
+    "MT", "ME", "MK", "NO", "SI", "CR", "CU", "JM", "RS", "IN"
   ];
 
   // Mapping of territories to their UN parent states for visual coloring
@@ -64,7 +64,8 @@
     CR: "Costa Rica",
     CU: "Cuba",
     JM: "Jamaica",
-    RS: "Serbia"
+    RS: "Serbia",
+    IN: "India"
   };
   // ============================================================
 
