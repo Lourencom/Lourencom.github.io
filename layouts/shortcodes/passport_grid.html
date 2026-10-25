@@ -41,10 +41,18 @@
     </div>
   </div>
 
-  <!-- Collapsible Interactive World Map -->
+  <!-- Collapsible Interactive World Map with Zoom & Pan -->
   <div id="collapsible-map-stage" class="collapsible-map-wrapper" style="display: none;">
-    <div class="travel-map-stage">
+    <div class="travel-map-stage" id="travel-map-stage">
       {{ partial "travel_map_svg.html" . }}
+      
+      <!-- Zoom & Pan Toolbar -->
+      <div class="map-zoom-controls">
+        <button type="button" class="zoom-btn" id="zoom-in-btn" title="Zoom In" aria-label="Zoom in">+</button>
+        <button type="button" class="zoom-btn" id="zoom-out-btn" title="Zoom Out" aria-label="Zoom out">−</button>
+        <button type="button" class="zoom-btn reset-btn" id="zoom-reset-btn" title="Reset View" aria-label="Reset view">⟲</button>
+      </div>
+
       <div id="travel-map-tooltip" class="travel-tooltip" style="display:none;"></div>
     </div>
   </div>
@@ -294,6 +302,13 @@ body.dark .collapsible-map-wrapper {
   border-radius: 8px;
   overflow: hidden;
   background: transparent;
+  cursor: grab;
+  user-select: none;
+  touch-action: pan-y; /* keep vertical scrolling safe on page */
+}
+
+.travel-map-stage.is-dragging {
+  cursor: grabbing !important;
 }
 
 #travel-map-svg {
@@ -308,7 +323,6 @@ body.dark .collapsible-map-wrapper {
   stroke: #ffffff;
   stroke-width: 0.6;
   transition: fill 0.15s ease, filter 0.15s ease;
-  cursor: pointer;
 }
 
 [data-theme="dark"] #travel-map-svg path,
@@ -317,7 +331,7 @@ body.dark #travel-map-svg path {
   stroke: #1a202c;
 }
 
-/* Visited Countries Styling - Exact Match Only (No Territory Inheritance) */
+/* Visited Countries Styling - Exact Match Only */
 {{ range $countries }}
 #travel-map-svg path#{{ .code | lower }},
 {{ end }}
@@ -345,7 +359,69 @@ body.dark #travel-map-svg path:hover {
   stroke: #94a3b8;
 }
 
+/* Zoom Toolbar */
+.map-zoom-controls {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  z-index: 10;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 4px;
+  border-radius: 8px;
+  border: 1px solid #cbd5e1;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  backdrop-filter: blur(4px);
+}
 
+[data-theme="dark"] .map-zoom-controls,
+body.dark .map-zoom-controls {
+  background: rgba(15, 23, 42, 0.9);
+  border-color: #334155;
+}
+
+.zoom-btn {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  border: 1px solid #e2e8f0;
+  background: #ffffff;
+  color: #1e293b;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.12s ease;
+  padding: 0;
+}
+
+[data-theme="dark"] .zoom-btn,
+body.dark .zoom-btn {
+  background: #1e293b;
+  border-color: #334155;
+  color: #f1f5f9;
+}
+
+.zoom-btn:hover {
+  background: #2563eb;
+  color: #ffffff;
+  border-color: #2563eb;
+}
+
+[data-theme="dark"] .zoom-btn:hover {
+  background: #3b82f6;
+  color: #ffffff;
+  border-color: #3b82f6;
+}
+
+.zoom-btn.reset-btn {
+  font-size: 0.9rem;
+}
 
 .travel-tooltip {
   position: absolute;
@@ -546,19 +622,126 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // Map SVG Tooltip
-  const container = document.querySelector('.travel-map-stage');
+  // SVG Pan & Zoom Engine
+  const container = document.getElementById('travel-map-stage');
   const svg = document.getElementById('travel-map-svg');
   const tooltip = document.getElementById('travel-map-tooltip');
-  if (svg && tooltip && container) {
+  
+  if (svg && container) {
+    const baseW = 1010;
+    const baseH = 666;
+    let currentZoom = 1;
+    let vbX = 0;
+    let vbY = 0;
+    let vbW = baseW;
+    let vbH = baseH;
+
+    function applyViewBox() {
+      svg.setAttribute('viewBox', `${vbX} ${vbY} ${vbW} ${vbH}`);
+    }
+
+    function zoom(factor, centerX, centerY) {
+      const newZoom = Math.min(6, Math.max(1, currentZoom * factor));
+      if (newZoom === currentZoom) return;
+
+      const newW = baseW / newZoom;
+      const newH = baseH / newZoom;
+
+      // Zoom towards center of current view
+      const cx = centerX !== undefined ? centerX : (vbX + vbW / 2);
+      const cy = centerY !== undefined ? centerY : (vbY + vbH / 2);
+
+      const ratio = newW / vbW;
+      vbX = cx - (cx - vbX) * ratio;
+      vbY = cy - (cy - vbY) * ratio;
+      vbW = newW;
+      vbH = newH;
+      currentZoom = newZoom;
+
+      // Keep in reasonable boundaries
+      clampViewBox();
+      applyViewBox();
+    }
+
+    function clampViewBox() {
+      const marginX = vbW * 0.2;
+      const marginY = vbH * 0.2;
+      vbX = Math.max(-marginX, Math.min(baseW - vbW + marginX, vbX));
+      vbY = Math.max(-marginY, Math.min(baseH - vbH + marginY, vbY));
+    }
+
+    function resetView() {
+      currentZoom = 1;
+      vbX = 0;
+      vbY = 0;
+      vbW = baseW;
+      vbH = baseH;
+      applyViewBox();
+    }
+
+    const zoomInBtn = document.getElementById('zoom-in-btn');
+    const zoomOutBtn = document.getElementById('zoom-out-btn');
+    const zoomResetBtn = document.getElementById('zoom-reset-btn');
+
+    if (zoomInBtn) zoomInBtn.addEventListener('click', () => zoom(1.4));
+    if (zoomOutBtn) zoomOutBtn.addEventListener('click', () => zoom(1 / 1.4));
+    if (zoomResetBtn) zoomResetBtn.addEventListener('click', resetView);
+
+    // Pan (Drag to move)
+    let isDragging = false;
+    let dragStartX = 0;
+    let dragStartY = 0;
+    let startVbX = 0;
+    let startVbY = 0;
+    let hasMoved = false;
+
+    container.addEventListener('mousedown', function (e) {
+      if (e.target.closest('.map-zoom-controls')) return;
+      isDragging = true;
+      hasMoved = false;
+      dragStartX = e.clientX;
+      dragStartY = e.clientY;
+      startVbX = vbX;
+      startVbY = vbY;
+      container.classList.add('is-dragging');
+    });
+
+    window.addEventListener('mousemove', function (e) {
+      if (!isDragging) return;
+      const dx = e.clientX - dragStartX;
+      const dy = e.clientY - dragStartY;
+      if (Math.abs(dx) > 3 || Math.abs(dy) > 3) {
+        hasMoved = true;
+        if (tooltip) tooltip.style.display = 'none';
+      }
+
+      const rect = container.getBoundingClientRect();
+      const scaleX = vbW / rect.width;
+      const scaleY = vbH / rect.height;
+
+      vbX = startVbX - dx * scaleX;
+      vbY = startVbY - dy * scaleY;
+      clampViewBox();
+      applyViewBox();
+    });
+
+    window.addEventListener('mouseup', function () {
+      if (isDragging) {
+        isDragging = false;
+        container.classList.remove('is-dragging');
+      }
+    });
+
+    // Tooltip handler
     const visitedCodes = new Set([
       {{ range $countries }}"{{ .code | lower }}",{{ end }}
     ]);
 
-    svg.addEventListener('mousemove', function(e) {
+    container.addEventListener('mousemove', function(e) {
+      if (isDragging || hasMoved) return;
       const target = e.target.closest('path');
-      if (!target) {
-        tooltip.style.display = 'none';
+      if (!target || !tooltip) {
+        if (tooltip) tooltip.style.display = 'none';
         return;
       }
 
@@ -582,7 +765,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     container.addEventListener('mouseleave', function() {
-      tooltip.style.display = 'none';
+      if (tooltip) tooltip.style.display = 'none';
     });
   }
 });
