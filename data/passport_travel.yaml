@@ -1,0 +1,211 @@
+# Passport / Travel Grid Data (No PII)
+total_world_entities: 256
+
+countries:
+  # Europe
+  - code: "PT"
+    name: Portugal
+    flag: "🇵🇹"
+    region: Europe
+    subregion: Southern Europe
+  - code: "GB"
+    name: United Kingdom
+    flag: "🇬🇧"
+    region: Europe
+    subregion: Western Europe
+  - code: "ES"
+    name: Spain
+    flag: "🇪🇸"
+    region: Europe
+    subregion: Southern Europe
+  - code: "FR"
+    name: France
+    flag: "🇫🇷"
+    region: Europe
+    subregion: Western Europe
+  - code: "DE"
+    name: Germany
+    flag: "🇩🇪"
+    region: Europe
+    subregion: Central Europe
+  - code: "IT"
+    name: Italy
+    flag: "🇮🇹"
+    region: Europe
+    subregion: Southern Europe
+  - code: "NL"
+    name: Netherlands
+    flag: "🇳🇱"
+    region: Europe
+    subregion: Western Europe
+  - code: "BE"
+    name: Belgium
+    flag: "🇧🇪"
+    region: Europe
+    subregion: Western Europe
+  - code: "CH"
+    name: Switzerland
+    flag: "🇨🇭"
+    region: Europe
+    subregion: Central Europe
+  - code: "AT"
+    name: Austria
+    flag: "🇦🇹"
+    region: Europe
+    subregion: Central Europe
+  - code: "IE"
+    name: Ireland
+    flag: "🇮🇪"
+    region: Europe
+    subregion: Western Europe
+  - code: "NO"
+    name: Norway
+    flag: "🇳🇴"
+    region: Europe
+    subregion: Northern Europe
+  - code: "DK"
+    name: Denmark
+    flag: "🇩🇰"
+    region: Europe
+    subregion: Northern Europe
+  - code: "CZ"
+    name: Czechia
+    flag: "🇨🇿"
+    region: Europe
+    subregion: Central Europe
+  - code: "HU"
+    name: Hungary
+    flag: "🇭🇺"
+    region: Europe
+    subregion: Central Europe
+  - code: "GR"
+    name: Greece
+    flag: "🇬🇷"
+    region: Europe
+    subregion: Southern Europe
+  - code: "HR"
+    name: Croatia
+    flag: "🇭🇷"
+    region: Europe
+    subregion: Balkans
+  - code: "RS"
+    name: Serbia
+    flag: "🇷🇸"
+    region: Europe
+    subregion: Balkans
+  - code: "BA"
+    name: Bosnia and Herzegovina
+    flag: "🇧🇦"
+    region: Europe
+    subregion: Balkans
+  - code: "ME"
+    name: Montenegro
+    flag: "🇲🇪"
+    region: Europe
+    subregion: Balkans
+  - code: "MK"
+    name: North Macedonia
+    flag: "🇲🇰"
+    region: Europe
+    subregion: Balkans
+  - code: "AL"
+    name: Albania
+    flag: "🇦🇱"
+    region: Europe
+    subregion: Balkans
+  - code: "SI"
+    name: Slovenia
+    flag: "🇸🇮"
+    region: Europe
+    subregion: Central Europe
+  - code: "LU"
+    name: Luxembourg
+    flag: "🇱🇺"
+    region: Europe
+    subregion: Western Europe
+  - code: "MT"
+    name: Malta
+    flag: "🇲🇹"
+    region: Europe
+    subregion: Southern Europe
+  - code: "LI"
+    name: Liechtenstein
+    flag: "🇱🇮"
+    region: Europe
+    subregion: Central Europe
+  - code: "AD"
+    name: Andorra
+    flag: "🇦🇩"
+    region: Europe
+    subregion: Southern Europe
+  - code: "VA"
+    name: Holy See
+    flag: "🇻🇦"
+    region: Europe
+    subregion: Southern Europe
+
+  # Americas
+  - code: "US"
+    name: United States
+    flag: "🇺🇸"
+    region: Americas
+    subregion: North America
+  - code: "BR"
+    name: Brazil
+    flag: "🇧🇷"
+    region: Americas
+    subregion: South America
+  - code: "CR"
+    name: Costa Rica
+    flag: "🇨🇷"
+    region: Americas
+    subregion: Central America
+  - code: "CU"
+    name: Cuba
+    flag: "🇨🇺"
+    region: Americas
+    subregion: Caribbean
+  - code: "JM"
+    name: Jamaica
+    flag: "🇯🇲"
+    region: Americas
+    subregion: Caribbean
+
+  # Africa
+  - code: "MA"
+    name: Morocco
+    flag: "🇲🇦"
+    region: Africa
+    subregion: North Africa
+  - code: "TN"
+    name: Tunisia
+    flag: "🇹🇳"
+    region: Africa
+    subregion: North Africa
+  - code: "EG"
+    name: Egypt
+    flag: "🇪🇬"
+    region: Africa
+    subregion: North Africa
+  - code: "CV"
+    name: Cabo Verde
+    flag: "🇨🇻"
+    region: Africa
+    subregion: West Africa
+  - code: "ST"
+    name: Sao Tome and Principe
+    flag: "🇸🇹"
+    region: Africa
+    subregion: Central Africa
+
+  # Asia
+  - code: "IN"
+    name: India
+    flag: "🇮🇳"
+    region: Asia
+    subregion: South Asia
+  - code: "VN"
+    name: Vietnam
+    flag: "🇻🇳"
+    region: Asia
+    subregion: Southeast Asia

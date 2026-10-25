@@ -1,0 +1,772 @@
+{{ $data := site.Data.passport_travel }}
+{{ $countries := $data.countries }}
+{{ $totalEntities := $data.total_world_entities | default 256 }}
+{{ $count := len $countries }}
+{{ $pct := div (mul (float $count) 100.0) (float $totalEntities) }}
+
+<div class="passport-container">
+  <!-- Metrics Bar -->
+  <div class="passport-metrics-grid">
+    <div class="metric-card">
+      <div class="metric-value">{{ $count }}</div>
+      <div class="metric-label">Countries Visited</div>
+      <div class="metric-sub">Sovereign & Autonomous States</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-value">4</div>
+      <div class="metric-label">Continents</div>
+      <div class="metric-sub">Europe · Americas · Africa · Asia</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-value">{{ printf "%.1f%%" $pct }}</div>
+      <div class="metric-label">% of World Visited</div>
+      <div class="metric-sub">{{ $count }} of {{ $totalEntities }} Territories</div>
+    </div>
+  </div>
+
+  <!-- Controls: Tabs, Search, and Map Toggle -->
+  <div class="passport-controls">
+    <div class="region-tabs" id="region-tabs">
+      <button class="tab-btn active" data-filter="all">All ({{ $count }})</button>
+      <button class="tab-btn" data-filter="Europe">Europe</button>
+      <button class="tab-btn" data-filter="Americas">Americas</button>
+      <button class="tab-btn" data-filter="Africa">Africa</button>
+      <button class="tab-btn" data-filter="Asia">Asia</button>
+    </div>
+    <div class="passport-controls-right">
+      <input type="text" id="passport-search" class="passport-search-input" placeholder="Search country..." />
+      <button type="button" id="map-toggle-btn" class="map-toggle-btn">
+        <span class="map-btn-icon">🗺️</span> <span id="map-btn-text">Show Map</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Collapsible Interactive World Map with Zoom & Pan -->
+  <div id="collapsible-map-stage" class="collapsible-map-wrapper" style="display: none;">
+    <div class="travel-map-stage" id="travel-map-stage">
+      {{ partial "travel_map_svg.html" . }}
+      
+      <!-- Zoom & Pan Toolbar -->
+      <div class="map-zoom-controls">
+        <button type="button" class="zoom-btn" id="zoom-in-btn" title="Zoom In" aria-label="Zoom in">+</button>
+        <button type="button" class="zoom-btn" id="zoom-out-btn" title="Zoom Out" aria-label="Zoom out">−</button>
+        <button type="button" class="zoom-btn reset-btn" id="zoom-reset-btn" title="Reset View" aria-label="Reset view">⟲</button>
+      </div>
+
+      <div id="travel-map-tooltip" class="travel-tooltip" style="display:none;"></div>
+    </div>
+  </div>
+
+  <!-- Cards Grid -->
+  <div class="passport-cards-grid" id="passport-cards-grid">
+    {{ range sort $countries "name" }}
+    <div class="country-card" data-region="{{ .region }}" data-name="{{ .name | lower }}" data-code="{{ .code | lower }}">
+      <div class="card-flag">{{ .flag }}</div>
+      <div class="card-info">
+        <div class="card-header-line">
+          <span class="card-country-name">{{ .name }}</span>
+          <span class="card-code-badge">{{ .code }}</span>
+        </div>
+        <div class="card-sub-line">
+          <span class="card-subregion">{{ .subregion | default .region }}</span>
+        </div>
+      </div>
+    </div>
+    {{ end }}
+  </div>
+
+  <p class="passport-empty-msg" id="passport-empty-msg" style="display: none;">
+    No countries matched your search.
+  </p>
+
+  <p class="passport-footnote">
+    Total based on 256 ISO 3166-1 sovereign states and dependent territories. Each territory is counted individually.
+  </p>
+</div>
+
+<style>
+.passport-container {
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* Metrics bar */
+.passport-metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.metric-card {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 1.1rem 1.25rem;
+  text-align: center;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.metric-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+[data-theme="dark"] .metric-card,
+body.dark .metric-card {
+  background: #1e293b;
+  border-color: #334155;
+}
+
+.metric-value {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #1e293b;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+[data-theme="dark"] .metric-value,
+body.dark .metric-value {
+  color: #f1f5f9;
+}
+
+.metric-label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #2563eb;
+  margin-top: 0.25rem;
+}
+
+[data-theme="dark"] .metric-label,
+body.dark .metric-label {
+  color: #60a5fa;
+}
+
+.metric-sub {
+  font-size: 0.75rem;
+  color: #64748b;
+  margin-top: 0.2rem;
+}
+
+/* Controls */
+.passport-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+  margin-bottom: 1.25rem;
+}
+
+.region-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.tab-btn {
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  color: #475569;
+  padding: 0.35rem 0.8rem;
+  border-radius: 8px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.tab-btn:hover {
+  background: #e2e8f0;
+  color: #1e293b;
+}
+
+.tab-btn.active {
+  background: #2563eb;
+  border-color: #2563eb;
+  color: #ffffff;
+}
+
+[data-theme="dark"] .tab-btn,
+body.dark .tab-btn {
+  background: #1e293b;
+  border-color: #334155;
+  color: #94a3b8;
+}
+
+[data-theme="dark"] .tab-btn:hover,
+body.dark .tab-btn:hover {
+  background: #334155;
+  color: #f1f5f9;
+}
+
+[data-theme="dark"] .tab-btn.active,
+body.dark .tab-btn.active {
+  background: #3b82f6;
+  border-color: #3b82f6;
+  color: #ffffff;
+}
+
+.passport-controls-right {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.passport-search-input {
+  width: 170px;
+  padding: 0.35rem 0.75rem;
+  font-size: 0.82rem;
+  border-radius: 8px;
+  border: 1px solid #cbd5e1;
+  background: #ffffff;
+  color: inherit;
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+
+.passport-search-input:focus {
+  border-color: #2563eb;
+}
+
+[data-theme="dark"] .passport-search-input,
+body.dark .passport-search-input {
+  background: #0f172a;
+  border-color: #334155;
+}
+
+/* Map Toggle Button */
+.map-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem 0.85rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  border-radius: 8px;
+  border: 1px solid #2563eb;
+  background: #eff6ff;
+  color: #1d4ed8;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.map-toggle-btn:hover {
+  background: #2563eb;
+  color: #ffffff;
+}
+
+.map-toggle-btn.active {
+  background: #2563eb;
+  color: #ffffff;
+}
+
+[data-theme="dark"] .map-toggle-btn {
+  background: #1e293b;
+  border-color: #3b82f6;
+  color: #60a5fa;
+}
+
+[data-theme="dark"] .map-toggle-btn:hover,
+[data-theme="dark"] .map-toggle-btn.active {
+  background: #3b82f6;
+  color: #ffffff;
+}
+
+/* Collapsible Map Section */
+.collapsible-map-wrapper {
+  margin-bottom: 1.5rem;
+  padding: 0.75rem;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  animation: fadeInMap 0.25s ease-out;
+}
+
+[data-theme="dark"] .collapsible-map-wrapper,
+body.dark .collapsible-map-wrapper {
+  background: #0f172a;
+  border-color: #334155;
+}
+
+@keyframes fadeInMap {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.travel-map-stage {
+  position: relative;
+  width: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+  background: transparent;
+  cursor: grab;
+  user-select: none;
+  touch-action: pan-y; /* keep vertical scrolling safe on page */
+}
+
+.travel-map-stage.is-dragging {
+  cursor: grabbing !important;
+}
+
+#travel-map-svg {
+  width: 100%;
+  height: auto;
+  max-height: 480px;
+  display: block;
+}
+
+#travel-map-svg path {
+  fill: #e2e8f0;
+  stroke: #ffffff;
+  stroke-width: 0.6;
+  transition: fill 0.15s ease, filter 0.15s ease;
+}
+
+[data-theme="dark"] #travel-map-svg path,
+body.dark #travel-map-svg path {
+  fill: #2d3748;
+  stroke: #1a202c;
+}
+
+/* Visited Countries Styling - Exact Match Only */
+{{ range $countries }}
+#travel-map-svg path#{{ .code | lower }},
+{{ end }}
+#travel-map-svg path.force-visited-dummy {
+  fill: #1565c0 !important;
+}
+
+{{ range $countries }}
+[data-theme="dark"] #travel-map-svg path#{{ .code | lower }},
+body.dark #travel-map-svg path#{{ .code | lower }},
+{{ end }}
+#travel-map-svg path.dark-visited-dummy {
+  fill: #3b82f6 !important;
+}
+
+#travel-map-svg path:hover {
+  filter: brightness(0.85);
+  stroke: #475569;
+  stroke-width: 1;
+}
+
+[data-theme="dark"] #travel-map-svg path:hover,
+body.dark #travel-map-svg path:hover {
+  filter: brightness(1.25);
+  stroke: #94a3b8;
+}
+
+/* Zoom Toolbar */
+.map-zoom-controls {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  z-index: 10;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 4px;
+  border-radius: 8px;
+  border: 1px solid #cbd5e1;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  backdrop-filter: blur(4px);
+}
+
+[data-theme="dark"] .map-zoom-controls,
+body.dark .map-zoom-controls {
+  background: rgba(15, 23, 42, 0.9);
+  border-color: #334155;
+}
+
+.zoom-btn {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  border: 1px solid #e2e8f0;
+  background: #ffffff;
+  color: #1e293b;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.12s ease;
+  padding: 0;
+}
+
+[data-theme="dark"] .zoom-btn,
+body.dark .zoom-btn {
+  background: #1e293b;
+  border-color: #334155;
+  color: #f1f5f9;
+}
+
+.zoom-btn:hover {
+  background: #2563eb;
+  color: #ffffff;
+  border-color: #2563eb;
+}
+
+[data-theme="dark"] .zoom-btn:hover {
+  background: #3b82f6;
+  color: #ffffff;
+  border-color: #3b82f6;
+}
+
+.zoom-btn.reset-btn {
+  font-size: 0.9rem;
+}
+
+.travel-tooltip {
+  position: absolute;
+  pointer-events: none;
+  background: rgba(15, 23, 42, 0.92);
+  color: #fff;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 0.82rem;
+  font-family: inherit;
+  z-index: 999;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+  white-space: nowrap;
+}
+
+/* Cards Grid */
+.passport-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  gap: 0.75rem;
+}
+
+.country-card {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.65rem 0.85rem;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+}
+
+.country-card:hover {
+  transform: translateY(-2px);
+  border-color: #93c5fd;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.08);
+}
+
+[data-theme="dark"] .country-card,
+body.dark .country-card {
+  background: #1e293b;
+  border-color: #334155;
+}
+
+[data-theme="dark"] .country-card:hover,
+body.dark .country-card:hover {
+  border-color: #3b82f6;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.card-flag {
+  font-size: 1.75rem;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.card-info {
+  flex-grow: 1;
+  min-width: 0;
+}
+
+.card-header-line {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.card-country-name {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #1e293b;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+[data-theme="dark"] .card-country-name,
+body.dark .card-country-name {
+  color: #f1f5f9;
+}
+
+.card-code-badge {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: #64748b;
+  background: #f1f5f9;
+  padding: 0.1rem 0.35rem;
+  border-radius: 4px;
+  letter-spacing: 0.04em;
+}
+
+[data-theme="dark"] .card-code-badge,
+body.dark .card-code-badge {
+  background: #0f172a;
+  color: #94a3b8;
+}
+
+.card-sub-line {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-top: 0.15rem;
+}
+
+.card-subregion {
+  font-size: 0.72rem;
+  color: #64748b;
+}
+
+[data-theme="dark"] .card-subregion,
+body.dark .card-subregion {
+  color: #94a3b8;
+}
+
+.passport-empty-msg {
+  text-align: center;
+  color: #64748b;
+  padding: 2rem 0;
+  font-size: 0.9rem;
+}
+
+.passport-footnote {
+  font-size: 0.75rem;
+  color: #64748b;
+  margin-top: 1.25rem;
+}
+</style>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  // Tabs & search
+  const tabs = document.querySelectorAll(".tab-btn");
+  const searchInput = document.getElementById("passport-search");
+  const cards = document.querySelectorAll(".country-card");
+  const emptyMsg = document.getElementById("passport-empty-msg");
+
+  let currentFilter = "all";
+  let searchQuery = "";
+
+  function filterCards() {
+    let visibleCount = 0;
+    cards.forEach(function (card) {
+      const region = card.getAttribute("data-region");
+      const name = card.getAttribute("data-name");
+      const code = card.getAttribute("data-code");
+
+      const matchesRegion = currentFilter === "all" || region === currentFilter;
+      const matchesSearch = !searchQuery || name.includes(searchQuery) || code.includes(searchQuery);
+
+      if (matchesRegion && matchesSearch) {
+        card.style.display = "flex";
+        visibleCount++;
+      } else {
+        card.style.display = "none";
+      }
+    });
+
+    if (emptyMsg) {
+      emptyMsg.style.display = visibleCount === 0 ? "block" : "none";
+    }
+  }
+
+  tabs.forEach(function (tab) {
+    tab.addEventListener("click", function () {
+      tabs.forEach(t => t.classList.remove("active"));
+      this.classList.add("active");
+      currentFilter = this.getAttribute("data-filter");
+      filterCards();
+    });
+  });
+
+  if (searchInput) {
+    searchInput.addEventListener("input", function () {
+      searchQuery = this.value.trim().toLowerCase();
+      filterCards();
+    });
+  }
+
+  // Map Toggle
+  const mapToggleBtn = document.getElementById("map-toggle-btn");
+  const mapStage = document.getElementById("collapsible-map-stage");
+  const mapBtnText = document.getElementById("map-btn-text");
+
+  if (mapToggleBtn && mapStage) {
+    mapToggleBtn.addEventListener("click", function () {
+      const isHidden = mapStage.style.display === "none";
+      if (isHidden) {
+        mapStage.style.display = "block";
+        mapToggleBtn.classList.add("active");
+        mapBtnText.textContent = "Hide Map";
+      } else {
+        mapStage.style.display = "none";
+        mapToggleBtn.classList.remove("active");
+        mapBtnText.textContent = "Show Map";
+      }
+    });
+  }
+
+  // SVG Pan & Zoom Engine
+  const container = document.getElementById('travel-map-stage');
+  const svg = document.getElementById('travel-map-svg');
+  const tooltip = document.getElementById('travel-map-tooltip');
+  
+  if (svg && container) {
+    const baseW = 1010;
+    const baseH = 666;
+    let currentZoom = 1;
+    let vbX = 0;
+    let vbY = 0;
+    let vbW = baseW;
+    let vbH = baseH;
+
+    function applyViewBox() {
+      svg.setAttribute('viewBox', `${vbX} ${vbY} ${vbW} ${vbH}`);
+    }
+
+    function zoom(factor, centerX, centerY) {
+      const newZoom = Math.min(6, Math.max(1, currentZoom * factor));
+      if (newZoom === currentZoom) return;
+
+      const newW = baseW / newZoom;
+      const newH = baseH / newZoom;
+
+      // Zoom towards center of current view
+      const cx = centerX !== undefined ? centerX : (vbX + vbW / 2);
+      const cy = centerY !== undefined ? centerY : (vbY + vbH / 2);
+
+      const ratio = newW / vbW;
+      vbX = cx - (cx - vbX) * ratio;
+      vbY = cy - (cy - vbY) * ratio;
+      vbW = newW;
+      vbH = newH;
+      currentZoom = newZoom;
+
+      // Keep in reasonable boundaries
+      clampViewBox();
+      applyViewBox();
+    }
+
+    function clampViewBox() {
+      const marginX = vbW * 0.2;
+      const marginY = vbH * 0.2;
+      vbX = Math.max(-marginX, Math.min(baseW - vbW + marginX, vbX));
+      vbY = Math.max(-marginY, Math.min(baseH - vbH + marginY, vbY));
+    }
+
+    function resetView() {
+      currentZoom = 1;
+      vbX = 0;
+      vbY = 0;
+      vbW = baseW;
+      vbH = baseH;
+      applyViewBox();
+    }
+
+    const zoomInBtn = document.getElementById('zoom-in-btn');
+    const zoomOutBtn = document.getElementById('zoom-out-btn');
+    const zoomResetBtn = document.getElementById('zoom-reset-btn');
+
+    if (zoomInBtn) zoomInBtn.addEventListener('click', () => zoom(1.4));
+    if (zoomOutBtn) zoomOutBtn.addEventListener('click', () => zoom(1 / 1.4));
+    if (zoomResetBtn) zoomResetBtn.addEventListener('click', resetView);
+
+    // Pan (Drag to move)
+    let isDragging = false;
+    let dragStartX = 0;
+    let dragStartY = 0;
+    let startVbX = 0;
+    let startVbY = 0;
+    let hasMoved = false;
+
+    container.addEventListener('mousedown', function (e) {
+      if (e.target.closest('.map-zoom-controls')) return;
+      isDragging = true;
+      hasMoved = false;
+      dragStartX = e.clientX;
+      dragStartY = e.clientY;
+      startVbX = vbX;
+      startVbY = vbY;
+      container.classList.add('is-dragging');
+    });
+
+    window.addEventListener('mousemove', function (e) {
+      if (!isDragging) return;
+      const dx = e.clientX - dragStartX;
+      const dy = e.clientY - dragStartY;
+      if (Math.abs(dx) > 3 || Math.abs(dy) > 3) {
+        hasMoved = true;
+        if (tooltip) tooltip.style.display = 'none';
+      }
+
+      const rect = container.getBoundingClientRect();
+      const scaleX = vbW / rect.width;
+      const scaleY = vbH / rect.height;
+
+      vbX = startVbX - dx * scaleX;
+      vbY = startVbY - dy * scaleY;
+      clampViewBox();
+      applyViewBox();
+    });
+
+    window.addEventListener('mouseup', function () {
+      if (isDragging) {
+        isDragging = false;
+        container.classList.remove('is-dragging');
+      }
+    });
+
+    // Tooltip handler
+    const visitedCodes = new Set([
+      {{ range $countries }}"{{ .code | lower }}",{{ end }}
+    ]);
+
+    container.addEventListener('mousemove', function(e) {
+      if (isDragging || hasMoved) return;
+      const target = e.target.closest('path');
+      if (!target || !tooltip) {
+        if (tooltip) tooltip.style.display = 'none';
+        return;
+      }
+
+      const name = target.getAttribute('name');
+      const id = (target.getAttribute('id') || '').toLowerCase();
+      if (!name) {
+        tooltip.style.display = 'none';
+        return;
+      }
+
+      const isVisited = visitedCodes.has(id);
+      tooltip.innerHTML = name + (isVisited ? ' <span style="color:#60a5fa;">✓</span>' : '');
+
+      const rect = container.getBoundingClientRect();
+      const x = e.clientX - rect.left + 12;
+      const y = e.clientY - rect.top + 12;
+
+      tooltip.style.left = x + 'px';
+      tooltip.style.top = y + 'px';
+      tooltip.style.display = 'block';
+    });
+
+    container.addEventListener('mouseleave', function() {
+      if (tooltip) tooltip.style.display = 'none';
+    });
+  }
+});
+</script>
