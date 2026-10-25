@@ -1,4 +1,4 @@
-# Passport / Travel Grid Data
+# Passport / Travel Grid Data (No PII)
 total_un_states: 195
 
 countries:
@@ -8,15 +8,11 @@ countries:
     flag: "🇵🇹"
     region: Europe
     subregion: Southern Europe
-    status: home
-    note: "Born & Raised"
   - code: GB
     name: United Kingdom
     flag: "🇬🇧"
     region: Europe
     subregion: Western Europe
-    status: lived
-    note: "Cambridge MPhil"
   - code: ES
     name: Spain
     flag: "🇪🇸"
@@ -154,7 +150,6 @@ countries:
     flag: "🇺🇸"
     region: Americas
     subregion: North America
-    note: "San Francisco"
   - code: BR
     name: Brazil
     flag: "🇧🇷"

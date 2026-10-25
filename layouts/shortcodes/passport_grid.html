@@ -15,12 +15,12 @@
     <div class="metric-card">
       <div class="metric-value">4</div>
       <div class="metric-label">Continents</div>
-      <div class="metric-sub">EU · AM · AF · AS</div>
+      <div class="metric-sub">Europe · Americas · Africa · Asia</div>
     </div>
     <div class="metric-card">
-      <div class="metric-value">2</div>
-      <div class="metric-label">Bases Lived In</div>
-      <div class="metric-sub">Portugal & UK</div>
+      <div class="metric-value">{{ $totalUN }}</div>
+      <div class="metric-label">UN & Observer States</div>
+      <div class="metric-sub">Global Benchmark</div>
     </div>
   </div>
 
@@ -50,13 +50,6 @@
         </div>
         <div class="card-sub-line">
           <span class="card-subregion">{{ .subregion | default .region }}</span>
-          {{ if .note }}
-          <span class="card-note-badge">{{ .note }}</span>
-          {{ else if eq .status "home" }}
-          <span class="card-note-badge home">Home</span>
-          {{ else if eq .status "lived" }}
-          <span class="card-note-badge lived">Lived</span>
-          {{ end }}
         </div>
       </div>
     </div>
@@ -226,7 +219,7 @@ body.dark .passport-search-input {
 /* Cards Grid */
 .passport-cards-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
   gap: 0.75rem;
 }
 
@@ -312,7 +305,6 @@ body.dark .card-code-badge {
   align-items: center;
   gap: 0.35rem;
   margin-top: 0.15rem;
-  flex-wrap: wrap;
 }
 
 .card-subregion {
@@ -320,38 +312,9 @@ body.dark .card-code-badge {
   color: #64748b;
 }
 
-.card-note-badge {
-  font-size: 0.68rem;
-  background: #eff6ff;
-  color: #1d4ed8;
-  padding: 0.05rem 0.35rem;
-  border-radius: 4px;
-  font-weight: 500;
-}
-
-.card-note-badge.home {
-  background: #ecfdf5;
-  color: #047857;
-}
-
-.card-note-badge.lived {
-  background: #fef3c7;
-  color: #b45309;
-}
-
-[data-theme="dark"] .card-note-badge {
-  background: #1e3a8a;
-  color: #93c5fd;
-}
-
-[data-theme="dark"] .card-note-badge.home {
-  background: #064e3b;
-  color: #6ee7b7;
-}
-
-[data-theme="dark"] .card-note-badge.lived {
-  background: #78350f;
-  color: #fde68a;
+[data-theme="dark"] .card-subregion,
+body.dark .card-subregion {
+  color: #94a3b8;
 }
 
 .passport-empty-msg {
