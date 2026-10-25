@@ -47,9 +47,6 @@
       {{ partial "travel_map_svg.html" . }}
       <div id="travel-map-tooltip" class="travel-tooltip" style="display:none;"></div>
     </div>
-    <p class="map-hint-text">
-      📍 Direct country-level coloring (territories like Greenland or Svalbard are not auto-shaded unless visited).
-    </p>
   </div>
 
   <!-- Cards Grid -->
@@ -348,13 +345,7 @@ body.dark #travel-map-svg path:hover {
   stroke: #94a3b8;
 }
 
-.map-hint-text {
-  font-size: 0.73rem;
-  color: #64748b;
-  margin-top: 0.5rem;
-  margin-bottom: 0;
-  text-align: center;
-}
+
 
 .travel-tooltip {
   position: absolute;
