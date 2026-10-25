@@ -1,8 +1,8 @@
 {{ $data := site.Data.passport_travel }}
 {{ $countries := $data.countries }}
-{{ $totalUN := $data.total_un_states | default 195 }}
+{{ $totalEntities := $data.total_world_entities | default 256 }}
 {{ $count := len $countries }}
-{{ $pct := div (mul (float $count) 100.0) (float $totalUN) }}
+{{ $pct := div (mul (float $count) 100.0) (float $totalEntities) }}
 
 <div class="passport-container">
   <!-- Metrics Bar -->
@@ -10,7 +10,7 @@
     <div class="metric-card">
       <div class="metric-value">{{ $count }}</div>
       <div class="metric-label">Countries Visited</div>
-      <div class="metric-sub">{{ printf "%.1f" $pct }}% of UN States</div>
+      <div class="metric-sub">{{ printf "%.1f" $pct }}% of World ({{ $totalEntities }} total)</div>
     </div>
     <div class="metric-card">
       <div class="metric-value">4</div>
@@ -18,13 +18,13 @@
       <div class="metric-sub">Europe · Americas · Africa · Asia</div>
     </div>
     <div class="metric-card">
-      <div class="metric-value">{{ $totalUN }}</div>
-      <div class="metric-label">UN & Observer States</div>
-      <div class="metric-sub">Global Benchmark</div>
+      <div class="metric-value">{{ $totalEntities }}</div>
+      <div class="metric-label">Countries & Territories</div>
+      <div class="metric-sub">ISO 3166 Global Standard</div>
     </div>
   </div>
 
-  <!-- Controls: Filter Tabs & Search -->
+  <!-- Controls: Tabs, Search, and Map Toggle -->
   <div class="passport-controls">
     <div class="region-tabs" id="region-tabs">
       <button class="tab-btn active" data-filter="all">All ({{ $count }})</button>
@@ -33,9 +33,23 @@
       <button class="tab-btn" data-filter="Africa">Africa</button>
       <button class="tab-btn" data-filter="Asia">Asia</button>
     </div>
-    <div class="passport-search-wrap">
+    <div class="passport-controls-right">
       <input type="text" id="passport-search" class="passport-search-input" placeholder="Search country..." />
+      <button type="button" id="map-toggle-btn" class="map-toggle-btn">
+        <span class="map-btn-icon">🗺️</span> <span id="map-btn-text">Show Map</span>
+      </button>
     </div>
+  </div>
+
+  <!-- Collapsible Interactive World Map -->
+  <div id="collapsible-map-stage" class="collapsible-map-wrapper" style="display: none;">
+    <div class="travel-map-stage">
+      {{ partial "travel_map_svg.html" . }}
+      <div id="travel-map-tooltip" class="travel-tooltip" style="display:none;"></div>
+    </div>
+    <p class="map-hint-text">
+      📍 Direct country-level coloring (territories like Greenland or Svalbard are not auto-shaded unless visited).
+    </p>
   </div>
 
   <!-- Cards Grid -->
@@ -61,7 +75,7 @@
   </p>
 
   <p class="passport-footnote">
-    Total based on 195 UN Member & Observer States.
+    Total based on 256 ISO 3166-1 sovereign states and dependent territories. Each territory is counted individually.
   </p>
 </div>
 
@@ -189,13 +203,15 @@ body.dark .tab-btn.active {
   color: #ffffff;
 }
 
-.passport-search-wrap {
-  flex-grow: 1;
-  max-width: 240px;
+.passport-controls-right {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
 }
 
 .passport-search-input {
-  width: 100%;
+  width: 170px;
   padding: 0.35rem 0.75rem;
   font-size: 0.82rem;
   border-radius: 8px;
@@ -214,6 +230,144 @@ body.dark .tab-btn.active {
 body.dark .passport-search-input {
   background: #0f172a;
   border-color: #334155;
+}
+
+/* Map Toggle Button */
+.map-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem 0.85rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  border-radius: 8px;
+  border: 1px solid #2563eb;
+  background: #eff6ff;
+  color: #1d4ed8;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.map-toggle-btn:hover {
+  background: #2563eb;
+  color: #ffffff;
+}
+
+.map-toggle-btn.active {
+  background: #2563eb;
+  color: #ffffff;
+}
+
+[data-theme="dark"] .map-toggle-btn {
+  background: #1e293b;
+  border-color: #3b82f6;
+  color: #60a5fa;
+}
+
+[data-theme="dark"] .map-toggle-btn:hover,
+[data-theme="dark"] .map-toggle-btn.active {
+  background: #3b82f6;
+  color: #ffffff;
+}
+
+/* Collapsible Map Section */
+.collapsible-map-wrapper {
+  margin-bottom: 1.5rem;
+  padding: 0.75rem;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  animation: fadeInMap 0.25s ease-out;
+}
+
+[data-theme="dark"] .collapsible-map-wrapper,
+body.dark .collapsible-map-wrapper {
+  background: #0f172a;
+  border-color: #334155;
+}
+
+@keyframes fadeInMap {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.travel-map-stage {
+  position: relative;
+  width: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+  background: transparent;
+}
+
+#travel-map-svg {
+  width: 100%;
+  height: auto;
+  max-height: 480px;
+  display: block;
+}
+
+#travel-map-svg path {
+  fill: #e2e8f0;
+  stroke: #ffffff;
+  stroke-width: 0.6;
+  transition: fill 0.15s ease, filter 0.15s ease;
+  cursor: pointer;
+}
+
+[data-theme="dark"] #travel-map-svg path,
+body.dark #travel-map-svg path {
+  fill: #2d3748;
+  stroke: #1a202c;
+}
+
+/* Visited Countries Styling - Exact Match Only (No Territory Inheritance) */
+{{ range $countries }}
+#travel-map-svg path#{{ .code | lower }},
+{{ end }}
+#travel-map-svg path.force-visited-dummy {
+  fill: #1565c0 !important;
+}
+
+{{ range $countries }}
+[data-theme="dark"] #travel-map-svg path#{{ .code | lower }},
+body.dark #travel-map-svg path#{{ .code | lower }},
+{{ end }}
+#travel-map-svg path.dark-visited-dummy {
+  fill: #3b82f6 !important;
+}
+
+#travel-map-svg path:hover {
+  filter: brightness(0.85);
+  stroke: #475569;
+  stroke-width: 1;
+}
+
+[data-theme="dark"] #travel-map-svg path:hover,
+body.dark #travel-map-svg path:hover {
+  filter: brightness(1.25);
+  stroke: #94a3b8;
+}
+
+.map-hint-text {
+  font-size: 0.73rem;
+  color: #64748b;
+  margin-top: 0.5rem;
+  margin-bottom: 0;
+  text-align: center;
+}
+
+.travel-tooltip {
+  position: absolute;
+  pointer-events: none;
+  background: rgba(15, 23, 42, 0.92);
+  color: #fff;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 0.82rem;
+  font-family: inherit;
+  z-index: 999;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+  white-space: nowrap;
 }
 
 /* Cards Grid */
@@ -333,6 +487,7 @@ body.dark .card-subregion {
 
 <script>
 document.addEventListener("DOMContentLoaded", function () {
+  // Tabs & search
   const tabs = document.querySelectorAll(".tab-btn");
   const searchInput = document.getElementById("passport-search");
   const cards = document.querySelectorAll(".country-card");
@@ -377,6 +532,66 @@ document.addEventListener("DOMContentLoaded", function () {
     searchInput.addEventListener("input", function () {
       searchQuery = this.value.trim().toLowerCase();
       filterCards();
+    });
+  }
+
+  // Map Toggle
+  const mapToggleBtn = document.getElementById("map-toggle-btn");
+  const mapStage = document.getElementById("collapsible-map-stage");
+  const mapBtnText = document.getElementById("map-btn-text");
+
+  if (mapToggleBtn && mapStage) {
+    mapToggleBtn.addEventListener("click", function () {
+      const isHidden = mapStage.style.display === "none";
+      if (isHidden) {
+        mapStage.style.display = "block";
+        mapToggleBtn.classList.add("active");
+        mapBtnText.textContent = "Hide Map";
+      } else {
+        mapStage.style.display = "none";
+        mapToggleBtn.classList.remove("active");
+        mapBtnText.textContent = "Show Map";
+      }
+    });
+  }
+
+  // Map SVG Tooltip
+  const container = document.querySelector('.travel-map-stage');
+  const svg = document.getElementById('travel-map-svg');
+  const tooltip = document.getElementById('travel-map-tooltip');
+  if (svg && tooltip && container) {
+    const visitedCodes = new Set([
+      {{ range $countries }}"{{ .code | lower }}",{{ end }}
+    ]);
+
+    svg.addEventListener('mousemove', function(e) {
+      const target = e.target.closest('path');
+      if (!target) {
+        tooltip.style.display = 'none';
+        return;
+      }
+
+      const name = target.getAttribute('name');
+      const id = (target.getAttribute('id') || '').toLowerCase();
+      if (!name) {
+        tooltip.style.display = 'none';
+        return;
+      }
+
+      const isVisited = visitedCodes.has(id);
+      tooltip.innerHTML = name + (isVisited ? ' <span style="color:#60a5fa;">✓</span>' : '');
+
+      const rect = container.getBoundingClientRect();
+      const x = e.clientX - rect.left + 12;
+      const y = e.clientY - rect.top + 12;
+
+      tooltip.style.left = x + 'px';
+      tooltip.style.top = y + 'px';
+      tooltip.style.display = 'block';
+    });
+
+    container.addEventListener('mouseleave', function() {
+      tooltip.style.display = 'none';
     });
   }
 });
